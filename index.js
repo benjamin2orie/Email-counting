@@ -88,13 +88,21 @@
 
 
 
+
+
 const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
 const Imap = require('imap');
 const { format } = require('date-fns');
 const cron = require('node-cron');
+const express = require('express');
 
 dotenv.config();
+
+
+// setting up express server
+const app = express();
+const PORT = process.env.PORT || 3000;
 
 // Email credentials
 const emailUser = process.env.EMAIL_USER;
@@ -122,7 +130,7 @@ function countEmailsToday() {
         if (err) return reject(err);
 
         const today = new Date();
-        const formattedDate = format(today, 'dd-MMM-yyyy'); // Convert to DD-MMM-YYYY format
+        const formattedDate = format(today, 'dd-MMM-yyyy'); 
 
         const searchCriteria = [['ON', formattedDate]];
         imap.search(searchCriteria, (err, results) => {
@@ -162,9 +170,10 @@ async function sendEmail(subject, text) {
   await transporter.sendMail(mailOptions);
 }
 
-// Function to count emails and send daily summary at 8 PM
+// Function to count emails and send daily summary (for testing, run every minute)
 function scheduleDailyEmailCount() {
-  cron.schedule('0 17 * * *', async () => {
+  cron.schedule('0 20 * * *', async () => {
+    console.log("Cron job running..."); // Log to indicate cron job is running
     try {
       const count = await countEmailsToday();
       console.log(`You received ${count} emails today.`);
@@ -180,6 +189,16 @@ function scheduleDailyEmailCount() {
 
 // Schedule the daily email count
 scheduleDailyEmailCount();
+
+
+app.get('/', (req, res) => {
+  res.send('Email Counting Service is running.');
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
 
 
 
