@@ -12,7 +12,7 @@
         "app_url": "https://github.com/benjamin2orie/Email-counting",
         "background_color": "#HEXCODE"
       },
-      "integration_category": "email message counting",
+      "integration_category": "Email & Messaging",
       "integration_type": "output",
       "is_active": false,
       "output": [
