@@ -61,7 +61,7 @@
           "options": ["Super-Admin", "Admin", "Manager", "Developer"]
         }
       ],
-      "target_url": "http://localhost:3040/integration.json"
+      "target_url": "https://email-counting.onrender.com/target.url"
     }
 
   }
