@@ -9,7 +9,7 @@
         "app_description":"An email counting app the count the number of mails you received each day and send you the response once it's 8:pm",
         "app_logo": "https://images.pexels.com/photos/30460366/pexels-photo-30460366/free-photo-of-relaxed-cat-on-a-sunlit-stone-in-istanbul-park.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1.",
         "app_name": "email counting.",
-        "app_url": "https://github.com/benjamin2orie/Email-counting",
+        "app_url": "https://email-counting.onrender.com",
         "background_color": "#HEXCODE"
       },
       "integration_category": "Email & Messaging",
@@ -76,7 +76,10 @@
           "options": ["Super-Admin", "Admin", "Manager", "Developer"]
         }
       ],
-      "tick_url": "URL for subscribing to Telex's clock.",
+      "tick_url": "https://ping.telex.im/v1/webhooks/01951997-e3eb-7010-aed3-7dbca3d56238",
       "target_url": "https://ping.telex.im/v1/webhooks/01951997-e3eb-7010-aed3-7dbca3d56238"
+    },
+    "script":{
+      "start": "node index.js"
     }
   }
