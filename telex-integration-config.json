@@ -14,28 +14,13 @@
       },
       "integration_category": "Email & Messaging",
       "integration_type": "output",
-      "is_active": false,
-      "output": [
-        {
-          "label": "output_channel_1",
-          "value": true
-        },
-        {
-          "label": "output_channel_2",
-          "value": false
-        }
-      ],
+      "is_active": true,
       "key_features": [
         "Check for mail message.",
         "count the total umber of mail received.",
         "Returned the total number of mail received each day once it is 8pm."
       ],
-      "permissions": {
-        "monitoring_user": {
-          "always_online": true,
-          "display_name": "Performance Monitor"
-        }
-      },
+
       "settings": [
         {
           "label": "interval",
@@ -76,10 +61,7 @@
           "options": ["Super-Admin", "Admin", "Manager", "Developer"]
         }
       ],
-      "tick_url": "https://ping.telex.im/v1/webhooks/01951997-e3eb-7010-aed3-7dbca3d56238",
-      "target_url": "https://ping.telex.im/v1/webhooks/01951997-e3eb-7010-aed3-7dbca3d56238"
-    },
-    "script":{
-      "start": "node index.js"
+      "target_url": "http://localhost:3040/integration.json"
     }
+
   }

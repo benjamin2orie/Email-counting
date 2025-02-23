@@ -1,6 +1,7 @@
 
 
 const dotenv = require('dotenv');
+const cors = require('cors')
 const nodemailer = require('nodemailer');
 const Imap = require('imap');
 const { format } = require('date-fns');
@@ -10,6 +11,16 @@ const path = require('path');
 const fs = require('fs');
 
 dotenv.config();
+
+// setting up express server
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors({
+  origin: 'http://example.com',
+  methods: ['GET', 'POST'],     
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 
 
@@ -81,11 +92,34 @@ async function sendEmail(subject, text) {
 
 // Function to count emails and send daily summary (for testing, run every minute)
 function scheduleDailyEmailCount() {
-  cron.schedule('0 20 * * *', async () => {
+  cron.schedule('* * * * *', async () => {
     console.log("Cron job running..."); // Log to indicate cron job is running
     try {
       const count = await countEmailsToday();
-      console.log(`You received ${count} emails today.`);
+
+    const url = `https://ping.telex.im/v1/webhooks/${process.env.CHANNEL_ID}`;
+    const data = {
+    "event_name": "Email count",
+    "message": `You receieved ${count} email today`,
+    "status": "success",
+    "username": `${emailUser}`
+    };
+
+    fetch(url, {
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(console.log)
+    .catch(console.error);
+
+
+
+      // console.log(`You received ${count} emails today.`);
       await sendEmail('Daily Email Count', `You received ${count} emails today.`);
     } catch (error) {
       console.log("Error occurred");
@@ -99,15 +133,13 @@ function scheduleDailyEmailCount() {
 // Schedule the daily email count
 scheduleDailyEmailCount();
 
-// setting up express server
-const app = express();
-const PORT = process.env.PORT || 3000;
+
 
 
 
 
 // Serve the JSON file via a GET request
-app.get('/integrationJson', (req, res) => {
+app.get('/integration.json', (req, res) => {
     const dataPath = path.join(__dirname, 'telex-integration-config.json');
     fs.readFile(dataPath, 'utf8', (err, data) => {
       if (err) {
@@ -116,6 +148,20 @@ app.get('/integrationJson', (req, res) => {
       }
       res.json(JSON.parse(data));
     });
+});
+
+app.post('/target.url', async(req, res) =>{
+
+  try {
+    const telexReponse =  await sendEmail('Daily Email Count', `You received ${count} emails today.`);
+    res.status(200).send(telexReponse);
+    
+  } catch (error) {
+    console.log("Hey Error occured here!");
+    res.status(500).send(error)
+    
+  }
+ 
 });
 
 app.listen(PORT, () => {
