@@ -202,12 +202,17 @@ import cron from 'node-cron';
 import express from 'express';
 import path from 'path';
 import fs from 'fs';
+import { fileURLToPath } from 'url'
 
 dotenv.config();
 
 // Setting up Express server
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(cors({
   origin: '*',
@@ -350,7 +355,6 @@ app.post('/target.url', async (req, res) => {
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-  console.log('Using emailUser:', process.env.EMAIL_USER);
 });
 
 export default app;
