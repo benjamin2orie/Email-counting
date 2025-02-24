@@ -1,68 +1,40 @@
 
-{
+
+
+
+
+  {
     "data": {
       "date": {
-        "created_at": "2025-02-18",
-        "updated_at": "2025-02-22"
+        "created_at": "2025-02-20",
+        "updated_at": "2025-02-24"
       },
       "descriptions": {
-        "app_description":"An email counting app the count the number of mails you received each day and send you the response once it's 8:pm",
-        "app_logo": "https://images.pexels.com/photos/30460366/pexels-photo-30460366/free-photo-of-relaxed-cat-on-a-sunlit-stone-in-istanbul-park.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1.",
+        "app_description": "An email counting app the count the number of mails you received each day and send you the response once it's 8:pm",
+        "app_logo":  "https://images.pexels.com/photos/30460366/pexels-photo-30460366/free-photo-of-relaxed-cat-on-a-sunlit-stone-in-istanbul-park.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1.",
         "app_name": "email counting.",
         "app_url": "https://email-counting.onrender.com",
-        "background_color": "#HEXCODE"
+        "background_color": "#fff"
       },
-      "integration_category": "Email & Messaging",
-      "integration_type": "output",
       "is_active": true,
+      "integration_type": "output",
       "key_features": [
         "Check for mail message.",
         "count the total umber of mail received.",
         "Returned the total number of mail received each day once it is 8pm."
       ],
-
+      "integration_category": "Email & Messaging",
+      "author": "Orie",
+      "website": "https://email-counting.onrender.com",
       "settings": [
         {
-          "label": "interval",
+          "label": "WebhookUrl",
           "type": "text",
           "required": true,
-          "default": "* * * * *"
-        },
-        {
-          "label": "Key",
-          "type": "text",
-          "required": true,
-          "default": "1234567890"
-        },
-        {
-          "label": "Do you want to continue",
-          "type": "checkbox",
-          "required": true,
-          "default": "Yes"
-        },
-        {
-          "label": "Provide Speed",
-          "type": "number",
-          "required": true,
-          "default": "1000"
-        },
-        {
-          "label": "Sensitivity Level",
-          "type": "dropdown",
-          "required": true,
-          "default": "Low",
-          "options": ["High", "Low"]
-        },
-        {
-          "label": "Alert Admin",
-          "type": "multi-checkbox",
-          "required": true,
-          "default": "Super-Admin",
-          "options": ["Super-Admin", "Admin", "Manager", "Developer"]
+          "default": ""
         }
       ],
       "target_url": "https://email-counting.onrender.com/target.url"
     }
-
   }
 
