@@ -145,17 +145,23 @@ app.get('/integration.json', (req, res) => {
     });
 });
 
-app.post('/target.url', async(req, res) =>{
+app.post('/target.url', async (req, res) => {
+  const {
+    emailUser = process.env.EMAIL_USER,
+    emailPass = process.env.EMAIL_PASS,
+    emailHost = process.env.EMAIL_HOST,
+    emailPort = process.env.EMAIL_PORT
+  } = req.body;
 
   try {
-    const telexReponse =  await sendEmail('Daily Email Count', `You received ${count} emails today.`);
-    res.status(200).send(telexReponse);
-    
+    const count = await countEmailsToday(emailUser, emailPass, emailHost, emailPort);
+    await sendEmail(emailUser, emailPass, 'Daily Email Count', `You received ${count} emails today.`);
+    res.status(200).send({ message: `You received ${count} emails today.` });
   } catch (error) {
-    console.log("Hey Error occured here!");
-    res.status(500).send(error)
-    
+    console.log("Error occurred");
+    res.status(500).send({ error: 'Failed to send email' });
   }
+  
  
 });
 
