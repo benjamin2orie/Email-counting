@@ -153,6 +153,12 @@ app.post('/target.url', async (req, res) => {
     emailPort = process.env.EMAIL_PORT
   } = req.body;
 
+
+  console.log('Using emailUser:', emailUser);
+  console.log('Using emailPass:', emailPass);
+  console.log('Using emailHost:', emailHost);
+  console.log('Using emailPort:', emailPort);
+
   try {
     const count = await countEmailsToday(emailUser, emailPass, emailHost, emailPort);
     await sendEmail(emailUser, emailPass, 'Daily Email Count', `You received ${count} emails today.`);
@@ -168,6 +174,9 @@ app.post('/target.url', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+server.timeout = 300000;
+
+export default app;
 
 
 
